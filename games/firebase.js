@@ -70,7 +70,7 @@ async function historyTable(email, date, match) {
   if (!match) {
     match = "9:0 AM";
   }
-  const ref = doc(db, "users", email, "games", date);
+  const ref = doc(db, "users", email, "lotto", date);
 
   const docSnap = await getDoc(ref);
   if (docSnap.exists()) {

@@ -17,13 +17,9 @@ import {
 import {
   getDoc,
   doc,
-  updateDoc,
   arrayUnion,
-  serverTimestamp,
   runTransaction,
   increment,
-  setDoc,
-  writeBatch,
   getFirestore,
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 
@@ -68,17 +64,6 @@ function showUserCredits(name, credit) {
   document.getElementById("user-credit").textContent = credit;
 }
 
-/* async function testFuncFirebaseTimeCheck() {
-  console.log(await fetchTime().time);
-  await updateDoc(doc(db, "games", "2022-5-5"), {
-    time: serverTimestamp(),
-  });
-}
-
-document.getElementById("test-btn").addEventListener("click", () => {
-  testFuncFirebaseTimeCheck();
-}); */
-
 let betClicked = false;
 //game - bet clicked
 async function play(email, number, amount) {
@@ -121,14 +106,14 @@ async function play(email, number, amount) {
           const gamesDateDoc = await transaction.get(doc(db, "games", date));
 
           const gamesDealerDoc = await transaction.get(
-            doc(db, "users", email, "games", date)
+            doc(db, "users", email, "lotto", date)
           );
           if (!gamesDateDoc.exists()) {
             transaction.set(doc(db, "games", date), {});
           }
 
           if (!gamesDealerDoc.exists()) {
-            transaction.set(doc(db, "users", email, "games", date), {});
+            transaction.set(doc(db, "users", email, "lotto", date), {});
             transaction.set(doc(db, "users", email, "sale", date), {});
           }
 
@@ -151,7 +136,7 @@ async function play(email, number, amount) {
           });
 
           transaction.update(
-            doc(db, "users", email, "games", date),
+            doc(db, "users", email, "lotto", date),
             {
               [`${drawTime}.${number}`]: increment(amount),
             },
