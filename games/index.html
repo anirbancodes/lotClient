@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Games | MyLotto</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+
+  <style>
+    body {
+      font-family: "lato", sans-serif;
+    }
+
+    .card-inner {
+      display: flex;
+      margin-top: -25px;
+      margin-bottom: -10px;
+    }
+    .m-l-10 {
+      margin-left: 20px;
+    }
+    .m-b-5 {
+      margin-bottom: 10px;
+    }
+    .p-1-5 {
+      padding: 1px 5px;
+    }
+    #game-table {
+      margin-top: 15px;
+    }
+  </style>
+  <body>
+    <div class="header">
+      <div style="display: flex; justify-content: space-between">
+        <h2>>> PlayLotto</h2>
+        <h3 class="margin-left-pc" id="time-counter"></h3>
+      </div>
+      <div class="header-user">
+        <p class="mob-margin-top-less-15" id="profile-name"></p>
+        <p class="mob-margin-top-less-15">
+          Credits: <span id="user-credit"></span>
+        </p>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-evenly">
+      <div class="header-option" id="header-game">
+        <p>Play</p>
+      </div>
+      <div class="header-option header-option-active" id="header-history">
+        <p>Games</p>
+      </div>
+      <!-- <div class="header-option" id="header-sale">
+        <p>Sale</p>
+      </div> -->
+      <div class="header-option" id="header-credits">
+        <p>Credits</p>
+      </div>
+    </div>
+
+    <div style="padding: 10px 20px">
+      <input type="date" id="date" />
+      <a style="text-align: center" class="btn-submit" id="showBtn">Show</a>
+      <div id="game-table"></div>
+    </div>
+    <p id="comment-text" style="text-align: center"></p>
+
+    <div style="height: 50px"></div>
+    <div style="display: flex; justify-content: space-between; padding: 0 10px">
+      <button class="btn-submit" id="logoutBtn">Log out</button>
+    </div>
+    <br />
+    <div>
+      <p style="text-align: center; font-size: 10px">
+        © 2022, Myotto Technologies Ltd. All rights reserved.
+      </p>
+    </div>
+    <script src="../style.js"></script>
+    <script type="module" src="./firebase.js"></script>
+  </body>
+</html>
