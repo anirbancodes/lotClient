@@ -82,10 +82,13 @@ async function play(email, number, amount) {
         gameHr = t22.hr;
       let gameMin = Math.ceil(min / 15) * 15;
       if (min == 0 || min == 15 || min == 30 || min == 45) gameMin += 15;
-      if (gameMin == 60) {
-        gameMin = 0;
-        gameHr++;
-      }
+      if (gameMin == 60 && gameHr != 12) {
+    gameMin = 0;
+    gameHr++;
+  } else if (gameMin == 60 && gameHr == 12) {
+    gameMin = 0;
+    gameHr = 1;
+  }
      
       let drawTime;
       if (gameHr < 9 && ampm == "AM") drawTime = "9:0 AM";
