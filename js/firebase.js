@@ -1,12 +1,3 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyAVgBu0P69xgUHnZ2Cc4G5IX6gHtb4-MBE",
-  authDomain: "qclottery.firebaseapp.com",
-  projectId: "qclottery",
-  storageBucket: "qclottery.appspot.com",
-  messagingSenderId: "650163027647",
-  appId: "1:650163027647:web:961de905315b549657500a",
-};
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
 
 import {
@@ -14,6 +5,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+import { fc } from "/js/c.js";
 import {
   getDoc,
   doc,
@@ -25,7 +17,7 @@ import {
 
 import { fetchTime } from "./index.js";
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(fc);
 const db = getFirestore(app);
 const auth = getAuth();
 
@@ -44,6 +36,7 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
     //showUserEmail(user.email);
+
     loadUserData(user.email);
   } else {
     window.location = "/pages/login.html";
@@ -55,6 +48,7 @@ async function loadUserData(email) {
   const docSnap = await getDoc(ref);
   if (docSnap.exists()) {
     let data = docSnap.data();
+    if (data.active == false) activateClient(email, data.name);
     showUserCredits(data.name, data.credit);
   }
 }
@@ -83,16 +77,16 @@ async function play(email, number, amount) {
       let gameMin = Math.ceil(min / 15) * 15;
       if (min == 0 || min == 15 || min == 30 || min == 45) gameMin += 15;
       if (gameMin == 60 && gameHr != 12) {
-    gameMin = 0;
-    gameHr++;
-  } else if (gameMin == 60 && gameHr == 12) {
-    gameMin = 0;
-    gameHr = 1;
-  }
-     
+        gameMin = 0;
+        gameHr++;
+      } else if (gameMin == 60 && gameHr == 12) {
+        gameMin = 0;
+        gameHr = 1;
+      }
+
       let drawTime;
       if (gameHr < 9 && ampm == "AM") drawTime = "9:0 AM";
-      else if (gameHr > 9 && ampm == "PM" && gameHr !=12) {
+      else if (gameHr > 9 && ampm == "PM" && gameHr != 12) {
         alert("Game Closed");
         betClicked = false;
         return;
@@ -191,3 +185,27 @@ btn.addEventListener("click", async (e) => {
     //betClicked = false;
   }
 });
+
+async function activateClient(email, name) {
+  try {
+    await runTransaction(db, async (transaction) => {
+      transaction.update(
+        doc(db, "users", email),
+        {
+          active: true,
+        },
+        { merge: true }
+      );
+      transaction.set(doc(db, "users", email, "credits", "0"), {});
+
+      transaction.set(doc(db, "users", email, "lotto", "0"), {});
+
+      transaction.set(doc(db, "users", email, "sale", "0"), {});
+
+      console.log("Client Doc created");
+    });
+  } catch (e) {
+    alert("Transaction failed: ", e);
+    console.error(e);
+  }
+}
