@@ -92,12 +92,17 @@ async function play(email, number, amount) {
         return;
       } else drawTime = gameHr + ":" + gameMin + " " + ampm;
 
-      // if (min % 10 == 9 && sec >= 50) {
-      //   alert("Time UP");
-      //   window.location = "/";
-      //   return;
-      // }
-      //
+      if (
+        (min % 10 == 59 && sec >= 45) ||
+        (min % 10 == 14 && sec >= 45) ||
+        (min % 10 == 29 && sec >= 45) ||
+        (min % 10 == 44 && sec >= 45)
+      ) {
+        alert("Time UP");
+        window.location = "/";
+        return;
+      }
+
       try {
         await runTransaction(db, async (transaction) => {
           const gamesDateDoc = await transaction.get(doc(db, "games", date));
@@ -147,7 +152,7 @@ async function play(email, number, amount) {
             { merge: true }
           );
         });
-        console.log("Transaction successfully committed!");
+        // console.log("Transaction successfully committed!");
       } catch (e) {
         alert("Transaction failed: ", e);
       }
@@ -202,10 +207,10 @@ async function activateClient(email, name) {
 
       transaction.set(doc(db, "users", email, "sale", "0"), {});
 
-      console.log("Client Doc created");
+      // console.log("Client Doc created");
     });
   } catch (e) {
-    alert("Transaction failed: ", e);
-    console.error(e);
+    alert("Activation failed");
+    // console.error(e);
   }
 }
