@@ -85,6 +85,7 @@ async function play(email, number, amount) {
       }
 
       let drawTime;
+      if (gameHr == 12 && gameMin == 0 && ampm == "AM") ampm = "PM";
       if (gameHr < 9 && ampm == "AM") drawTime = "9:0 AM";
       else if (gameHr > 9 && ampm == "PM" && gameHr != 12) {
         alert("Game Closed");
@@ -161,7 +162,7 @@ async function play(email, number, amount) {
       //window.location = "/";
       document.getElementById("bet-amt").value = 0;
     } else {
-      alert(`insufficient credits, add credits`);
+      alert(`Insufficient balance`);
     }
   }
 }
