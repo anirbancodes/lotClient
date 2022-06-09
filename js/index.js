@@ -96,7 +96,7 @@ function setGameDrawTime() {
     drawTime = "9:0 AM";
   else drawTime = gameHr + ":" + gameMin + " " + ampm;
 
-  document.getElementById("draw-date").innerHTML = date;
+  // document.getElementById("draw-date").innerHTML = date;
   document.getElementById("draw-time").innerHTML = drawTime;
 }
 

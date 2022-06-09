@@ -16,16 +16,16 @@ const app = initializeApp(fc);
 const db = getFirestore(app);
 const auth = getAuth();
 
-const logoutBtn = document.getElementById("logoutBtn");
-logoutBtn.addEventListener("click", (e) => {
-  signOut(auth)
-    .then(() => {
-      //logout
-    })
-    .catch((error) => {
-      alert(error);
-    });
-});
+// const logoutBtn = document.getElementById("logoutBtn");
+// logoutBtn.addEventListener("click", (e) => {
+//   signOut(auth)
+//     .then(() => {
+//       //logout
+//     })
+//     .catch((error) => {
+//       alert(error);
+//     });
+// });
 
 onAuthStateChanged(auth, (user) => {
   if (user) {

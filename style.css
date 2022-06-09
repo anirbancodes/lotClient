@@ -26,7 +26,7 @@ html {
   user-select: none;
 }
 ::-webkit-scrollbar {
-  width: 18px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -34,14 +34,14 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(234, 98, 49);
+  background-color: plum;
   border-radius: 20px;
-  border: 6px solid transparent;
+  border: 0px solid transparent;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #000000;
+  background-color: rgb(239, 93, 239);
 }
 
 /* #Primary
@@ -93,26 +93,67 @@ p {
 .header-option {
   width: 21%;
   text-align: center;
+  background-color: #fafafaa9;
+  cursor: pointer;
+  font-size: 10px;
+  border-radius: 30px;
+}
+.btn-plum {
+  outline: none;
+  border: 0;
+  /* height: 50px;
+     width: 160px; */
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  /* padding: 12px 40px; */
+  padding: 12px 20px;
+  width: max-content;
+  border-radius: 20px;
+  background-color: #f8ceec;
+  background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
+}
+.header-option-active {
+  width: 21%;
+  text-align: center;
   background-color: white;
   cursor: pointer;
   font-size: 10px;
   border-radius: 30px;
-}
-
-.header-option-active {
-  width: 21%;
-  text-align: center;
-  background-color: orangered;
-  color: white;
-  cursor: pointer;
-  font-size: 10px;
-  border-radius: 30px;
+  box-shadow: plum 0px 18px 50px -10px;
 }
 .header-option-active > p {
-  color: white;
+  color: #4f718a;
 }
 .header-option:hover {
   box-shadow: 5px 10px #bfc0c3;
+}
+.btn-short {
+  width: max-content;
+  padding: 8px 20px;
+  font-size: 13px;
+  outline: none;
+  color: #4f718a;
+  background-color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 20px;
+}
+.btn-short:hover {
+  color: orangered;
+  box-shadow: plum 0px 18px 50px -10px;
+}
+.btn-violet {
+  width: max-content;
+  padding: 8px 20px;
+  font-size: 13px;
+  outline: none;
+  color: #4f718a;
+  background-color: rgb(113, 16, 113);
+  color: #fee1f6;
+  cursor: pointer;
+  border: none;
+  border-radius: 20px;
 }
 .search-box {
   text-align: center;

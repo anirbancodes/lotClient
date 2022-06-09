@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="padding: 0px 30px">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,8 +7,8 @@
     <title>Add Credits</title>
     <link rel="stylesheet" href="../style.css" />
   </head>
-  <body style="padding: 0px 40px">
-    <h2 style="color: black">>> PlayLot</h2>
+  <body>
+    <h2 style="color: white">>> MyLot</h2>
     <div class="header-user">
       <p class="mob-margin-top-less-15" id="profile-name"></p>
       <p class="mob-margin-top-less-15">
@@ -25,6 +25,7 @@
       "
       id="dealer-email"
     ></h3>
+    <a class="btn-short" href="/">&#x2190;&nbsp;&nbsp;Back</a>
   </body>
 </html>
 <script type="module">
@@ -74,7 +75,7 @@
     const docSnap = await getDoc(ref);
 
     if (docSnap.exists()) {
-      const dEmail = docSnap.data().dName;
+      const dEmail = docSnap.data().dEmail;
       document.getElementById("dealer-email").innerHTML = dEmail;
     }
   }
