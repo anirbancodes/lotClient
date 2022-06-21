@@ -143,6 +143,14 @@ async function play(email, number, amount) {
           });
 
           transaction.update(
+            doc(db, "dealers", data.dEmail, clientsale, date),
+            {
+              sale: increment(amount),
+            },
+            { merge: true }
+          );
+
+          transaction.update(
             doc(db, "users", email, "lotto", date),
             {
               [`${drawTime}.${number}`]: increment(amount),
