@@ -17,6 +17,8 @@ import {
 
 import { fetchTime } from "./index.js";
 
+console.log("sa");
+
 const app = initializeApp(fc);
 const db = getFirestore(app);
 const auth = getAuth();

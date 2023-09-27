@@ -18,7 +18,7 @@ let date, time, hms;
 
 async function fetchTime() {
   let apiData;
-  await fetch("https://qctime1.p.rapidapi.com/time", optionsQcTime1)
+  await fetch("https://time.api.mylot.org")
     .then((res) => res.json())
     .then((res) => {
       apiData = res;
@@ -27,7 +27,7 @@ async function fetchTime() {
       hms = [res.hr, res.min, res.sec, res.ampm];
     })
     .catch(async (err) => {
-      await fetch("https://livetime.p.rapidapi.com/time", optionsLiveTime)
+      await fetch("https://time.api.mylotto.in")
         .then((res) => res.json())
         .then((res) => {
           apiData = res;
@@ -38,9 +38,29 @@ async function fetchTime() {
     });
   return apiData;
 }
+async function xxx3() {
+  let myHeaders = new Headers();
+  myHeaders.append("apikey", "1FvKK0Vr5ONnGDMHb4ykdKu4L4xeuatY");
+  let reqOptions = {
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
+  };
+  let number = 9938831709;
+  await fetch(
+    "https://api.apilayer.com/number_verification/validate?number=%2B91" +
+      number,
+    reqOptions
+  )
+    .then((res) => res.text())
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+}
 displayTime();
 async function displayTime() {
+  // await xxx3();
   await fetchTime();
+
   document.getElementById("time-counter").innerHTML = time;
   t();
 }
