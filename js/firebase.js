@@ -110,6 +110,8 @@ async function play(email, number, amount) {
         return;
       }
 
+      // console.log(drawTime);
+
       try {
         await runTransaction(db, async (transaction) => {
           const gamesDateDoc = await transaction.get(doc(db, "games", date));
@@ -117,6 +119,11 @@ async function play(email, number, amount) {
           const gamesDealerDoc = await transaction.get(
             doc(db, "users", email, "lotto", date)
           );
+
+          const clientSaleDealerDoc = await transaction.get(
+            doc(db, "dealers", data.dEmail, "clientsale", date)
+          );
+
           if (!gamesDateDoc.exists()) {
             transaction.set(doc(db, "games", date), {});
           }
@@ -124,6 +131,13 @@ async function play(email, number, amount) {
           if (!gamesDealerDoc.exists()) {
             transaction.set(doc(db, "users", email, "lotto", date), {});
             transaction.set(doc(db, "users", email, "sale", date), {});
+          }
+
+          if (!clientSaleDealerDoc.exists()) {
+            transaction.set(
+              doc(db, "dealers", data.dEmail, "clientsale", date),
+              {}
+            );
           }
 
           transaction.update(
@@ -145,7 +159,7 @@ async function play(email, number, amount) {
           });
 
           transaction.update(
-            doc(db, "dealers", data.dEmail, clientsale, date),
+            doc(db, "dealers", data.dEmail, "clientsale", date),
             {
               sale: increment(amount),
             },
@@ -169,6 +183,7 @@ async function play(email, number, amount) {
         });
         // console.log("Transaction successfully committed!");
       } catch (e) {
+        console.log(e, e.error);
         alert("Transaction failed: ", e);
       }
 
