@@ -57,6 +57,7 @@ async function xxx3() {
     .catch((err) => console.log(err));
 }
 displayTime();
+let G_time_c = 0;
 async function displayTime() {
   // await xxx3();
   await fetchTime();
@@ -65,18 +66,24 @@ async function displayTime() {
   t();
 }
 async function t() {
-  const a = setInterval(() => {
-    hms[2]++;
-    if (hms[2] > 59) {
-      hms[2] = 0;
-      hms[1]++;
+  const a = setInterval(async () => {
+    G_time_c++;
+    if (G_time_c < 15) {
+      hms[2]++;
+      if (hms[2] > 59) {
+        hms[2] = 0;
+        hms[1]++;
+      }
+      if (hms[1] > 59) {
+        hms[1] = 0;
+        hms[0]++;
+      }
+      document.getElementById("time-counter").innerHTML =
+        hms[0] + ":" + hms[1] + ":" + hms[2];
+    } else {
+      G_time_c = 0;
+      await fetchTime();
     }
-    if (hms[1] > 59) {
-      hms[1] = 0;
-      hms[0]++;
-    }
-    document.getElementById("time-counter").innerHTML =
-      hms[0] + ":" + hms[1] + ":" + hms[2];
     setGameDrawTime();
     // console.log(time);
   }, 1000);
