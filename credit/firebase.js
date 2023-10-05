@@ -76,6 +76,7 @@ async function historyTable(email, date) {
       `</p>
       <div class="card-inner">
         <p style="color: orangered">` +
+      (i.amt > 0 ? "+" : "-") +
       i.amt +
       `</p>
         <p>` +

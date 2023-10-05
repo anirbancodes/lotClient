@@ -73,7 +73,8 @@ async function historyTable(email, date) {
     let keys = Object.keys(games).sort().reverse();
     keys.forEach((match) => {
       let rowData =
-        `<div class="client m-b-5">
+        `<div class="client m-b-5" style=" width: 100px;
+        margin-right: 5px;">
         <div class="p-1-5">
           <p>` +
         match +
