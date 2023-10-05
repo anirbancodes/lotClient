@@ -50,10 +50,9 @@ function showUserCredits(name, credit) {
   document.getElementById("profile-name").textContent += name;
   document.getElementById("user-credit").textContent = credit;
 }
-async function historyTable(email, date, match) {
-  document.getElementById(
-    "game-table"
-  ).innerHTML = `<div class="upper-white-card">`;
+async function historyTable(email, date) {
+  document.getElementById("game-table").innerHTML = "";
+  //`<div class="upper-white-card">`;
   document.getElementById("comment-text").innerHTML = "";
   if (!date) {
     let now = new Date();
@@ -61,16 +60,17 @@ async function historyTable(email, date, match) {
       now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
     date = date1;
   }
-  if (!match) {
-    match = "9:0 AM";
-  }
+  console.log(date);
+  // if (!match) {
+  //   match = "9:0 AM";
+  // }
   const ref = doc(db, "users", email, "lotto", date);
 
   const docSnap = await getDoc(ref);
   if (docSnap.exists()) {
     const games = docSnap.data();
     // const game = games[match];
-    let keys = Object.keys(games);
+    let keys = Object.keys(games).sort().reverse();
     keys.forEach((match) => {
       let rowData =
         `<div class="client m-b-5">
@@ -99,13 +99,13 @@ async function historyTable(email, date, match) {
       </div>`;
     });
   }
-  document.getElementById("game-table").innerHTML += `</div>`;
+  // document.getElementById("game-table").innerHTML += `</div>`;
 }
 const showBtn = document.getElementById("showBtn");
-showBtn.addEventListener("click", () => {
+showBtn.addEventListener("click", async () => {
   let date = document.getElementById("date").value;
-  let match = document.getElementById("history-match").value;
-  console.log(match);
+  //let match = document.getElementById("history-match").value;
+  //console.log(match);
   let i1 = date.indexOf("-"),
     i2 = date.lastIndexOf("-");
   date =
@@ -113,5 +113,6 @@ showBtn.addEventListener("click", () => {
     (Number(date.substring(i1 + 1, i2)) / 10) * 10 +
     "-" +
     (Number(date.substring(i2 + 1, i2 + 3)) / 10) * 10;
-  historyTable(auth.currentUser.email, date, match);
+  console.log(date);
+  await historyTable(auth.currentUser.email, date);
 });
